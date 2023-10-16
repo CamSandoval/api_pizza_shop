@@ -20,7 +20,7 @@ public class PizzaController {
 
     @GetMapping("/all")
     public ResponseEntity<List<PizzaEntity>> pizzaList(){
-        return ResponseEntity.ok(service.getAll());
+        return ResponseEntity.ok(service.findAvailable());
     }
 
     @GetMapping("/{idPizza}")
@@ -44,6 +44,17 @@ public class PizzaController {
     public ResponseEntity<PizzaEntity> updatePizza(@RequestBody PizzaEntity pizza){
         if(pizza.getIdPizza() != null && service.exists(pizza.getIdPizza())){
             return ResponseEntity.ok(service.createPizza(pizza));
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    @DeleteMapping("/delete/{idPizza}")
+    @Transactional
+    public ResponseEntity<Void> delete(@PathVariable Integer idPizza){
+        if(service.exists(idPizza)){
+            PizzaEntity pizza = service.getReferenceById(idPizza);
+            pizza.deactivate();
+            return ResponseEntity.noContent().build();
         }
         return ResponseEntity.badRequest().build();
     }

@@ -28,4 +28,8 @@ public class PizzaService {
         return repository.existsById(idPizza);
     }
 
+    public List<PizzaEntity> findAvailable(){
+        return repository.findByAvailableTrue();
+    }
+
 }
