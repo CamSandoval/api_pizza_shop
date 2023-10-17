@@ -1,8 +1,10 @@
 package com.platzi.pizza.service;
 
-import com.platzi.pizza.persistence.entity.PizzaEntity;
+import com.platzi.pizza.persistence.entity.Pizza.PizzaEntity;
 import com.platzi.pizza.persistence.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +14,9 @@ public class PizzaService {
 
     @Autowired
     private PizzaRepository repository;
+    public Page<PizzaEntity> findAvailable(Pageable pageable){
+        return repository.findByAvailableTrue(pageable);
+    }
 
     public List<PizzaEntity> getAll(){
         return repository.findAll();
@@ -26,10 +31,6 @@ public class PizzaService {
     }
     public boolean exists(Integer idPizza){
         return repository.existsById(idPizza);
-    }
-
-    public List<PizzaEntity> findAvailable(){
-        return repository.findByAvailableTrue();
     }
 
 }

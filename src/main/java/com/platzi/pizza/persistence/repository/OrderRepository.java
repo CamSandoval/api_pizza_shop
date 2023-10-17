@@ -1,6 +1,8 @@
 package com.platzi.pizza.persistence.repository;
 
-import com.platzi.pizza.persistence.entity.OrderEntity;
+import com.platzi.pizza.persistence.entity.Order.OrderEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
 
