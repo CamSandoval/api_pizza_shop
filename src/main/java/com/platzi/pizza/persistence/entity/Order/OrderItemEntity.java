@@ -1,6 +1,7 @@
-package com.platzi.pizza.persistence.entity;
+package com.platzi.pizza.persistence.entity.Order;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.platzi.pizza.persistence.entity.Pizza.PizzaEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

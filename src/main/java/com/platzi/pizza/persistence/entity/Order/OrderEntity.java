@@ -1,6 +1,7 @@
-package com.platzi.pizza.persistence.entity;
+package com.platzi.pizza.persistence.entity.Order;
 
 
+import com.platzi.pizza.persistence.entity.Customer.CustomerEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

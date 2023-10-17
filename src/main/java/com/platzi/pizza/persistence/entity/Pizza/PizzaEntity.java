@@ -1,4 +1,4 @@
-package com.platzi.pizza.persistence.entity;
+package com.platzi.pizza.persistence.entity.Pizza;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -36,5 +36,23 @@ public class PizzaEntity {
 
     public void deactivate() {
         this.available=false;
+    }
+
+    public PizzaEntity(DTOCreatePizza data){
+        this.name= data.name();
+        this.description= data.description();
+        this.price= data.price();
+        this.vegetarian= data.vegetarian();
+        this.vegan= data.vegan();
+        this.available= data.available();
+    }
+
+    public void update(DTOUpdatePizza data) {
+        this.name= data.name();
+        this.description= data.description();
+        this.price= data.price();
+        this.vegetarian= data.vegetarian();
+        this.vegan= data.vegan();
+        this.available= data.available();
     }
 }

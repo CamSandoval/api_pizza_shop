@@ -1,4 +1,4 @@
-package com.platzi.pizza.persistence.entity;
+package com.platzi.pizza.persistence.entity.Order;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

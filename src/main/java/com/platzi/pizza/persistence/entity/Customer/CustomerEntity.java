@@ -1,9 +1,17 @@
-package com.platzi.pizza.persistence.entity;
+package com.platzi.pizza.persistence.entity.Customer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.platzi.pizza.persistence.entity.Order.OrderEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "customer")
+@Getter
+@Setter
+@NoArgsConstructor
 public class CustomerEntity {
     @Id
     @Column(name = "id_customer",nullable = false,length = 15)
@@ -19,4 +27,5 @@ public class CustomerEntity {
 
     @Column(name = "phone_number",length = 20)
     private String phoneNumber;
+
 }
