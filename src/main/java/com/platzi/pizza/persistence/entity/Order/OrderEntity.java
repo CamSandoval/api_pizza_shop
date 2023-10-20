@@ -1,6 +1,7 @@
 package com.platzi.pizza.persistence.entity.Order;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.platzi.pizza.persistence.entity.Customer.CustomerEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -36,10 +37,11 @@ public class OrderEntity {
     @Column(name = "additional_notes",length = 200)
     private String additionalNotes;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "id_customer",referencedColumnName = "id_customer",insertable = false,updatable = false)
     private CustomerEntity customer ;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order",fetch = FetchType.EAGER)
     private List<OrderItemEntity> orderItems;
 }

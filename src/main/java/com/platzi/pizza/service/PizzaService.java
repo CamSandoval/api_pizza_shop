@@ -15,15 +15,19 @@ public class PizzaService {
     @Autowired
     private PizzaRepository repository;
     public Page<PizzaEntity> findAvailable(Pageable pageable){
-        return repository.findByAvailableTrue(pageable);
-    }
-
-    public List<PizzaEntity> getAll(){
-        return repository.findAll();
+        return repository.findByAvailableTrueOrderByPrice(pageable);
     }
 
     public PizzaEntity getReferenceById(Integer id){
         return repository.findById(id).orElse(null);
+    }
+
+    public PizzaEntity getPizzaByName(String name){ return repository.findByAvailableTrueAndNameIgnoreCase(name);}
+    public Page<PizzaEntity> getPizzaWithFilterByIngredient(Pageable pageable ,String description){
+        return repository.findAllByAvailableTrueAndDescriptionContainingIgnoreCase(pageable, description);
+    }
+    public Page<PizzaEntity> getPizzaWithOutIngredient(Pageable pageable ,String description){
+        return repository.findAllByAvailableTrueAndDescriptionNotContainingIgnoreCase(pageable, description);
     }
 
     public PizzaEntity createPizza(PizzaEntity pizza){

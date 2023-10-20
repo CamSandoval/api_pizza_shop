@@ -11,5 +11,8 @@ import java.util.List;
 
 @Repository
 public interface PizzaRepository extends ListCrudRepository<PizzaEntity,Integer> {
-    Page<PizzaEntity> findByAvailableTrue(Pageable pageable);
+    Page<PizzaEntity> findByAvailableTrueOrderByPrice(Pageable pageable);
+    PizzaEntity findByAvailableTrueAndNameIgnoreCase(String name);
+    Page<PizzaEntity> findAllByAvailableTrueAndDescriptionContainingIgnoreCase(Pageable pageable, String description);
+    Page<PizzaEntity> findAllByAvailableTrueAndDescriptionNotContainingIgnoreCase(Pageable pageable, String description);
 }

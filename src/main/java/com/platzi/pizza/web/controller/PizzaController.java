@@ -34,6 +34,21 @@ public class PizzaController {
         return ResponseEntity.ok(new DTOPizzaList(pizza));
     }
 
+    @GetMapping("/name/{pizzaName}")
+    public ResponseEntity<DTOPizzaList> getByName(@PathVariable String pizzaName){
+        PizzaEntity pizza = service.getPizzaByName(pizzaName);
+        return ResponseEntity.ok(new DTOPizzaList(pizza));
+    }
+
+    @GetMapping("/with/{description}")
+    public ResponseEntity<Page<DTOPizzaList>> pizzasFilterByIngredient(@PageableDefault(size = 2)Pageable pageable,@PathVariable String description){
+        return ResponseEntity.ok(service.getPizzaWithFilterByIngredient(pageable,description).map(DTOPizzaList::new));
+    }
+    @GetMapping("/withOut/{description}")
+    public ResponseEntity<Page<DTOPizzaList>> pizzasWithOutIngredient(@PageableDefault(size = 2)Pageable pageable,@PathVariable String description){
+        return ResponseEntity.ok(service.getPizzaWithOutIngredient(pageable,description).map(DTOPizzaList::new));
+    }
+
     @PostMapping("/create")
     @Transactional
     public ResponseEntity<DTOPizzaList> createPizza(@Valid @RequestBody DTOCreatePizza data, UriComponentsBuilder builder){
