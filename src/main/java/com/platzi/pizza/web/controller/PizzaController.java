@@ -24,8 +24,11 @@ public class PizzaController {
     private PizzaService service;
 
     @GetMapping("/all")
-    public ResponseEntity<Page<DTOPizzaList>> pizzaList(@PageableDefault(size = 5)Pageable pageable){
-        return ResponseEntity.ok(service.findAvailable(pageable).map(DTOPizzaList::new));
+    public ResponseEntity<Page<DTOPizzaList>> pizzaList(@RequestParam(defaultValue = "0") int page,
+                                                        @RequestParam(defaultValue = "5") int elements,
+                                                        @RequestParam(defaultValue = "price") String sortBy,
+                                                        @RequestParam(defaultValue = "ASC")String sortDirection){
+        return ResponseEntity.ok(service.findAvailable(page, elements,sortBy,sortDirection).map(DTOPizzaList::new));
     }
 
     @GetMapping("/{idPizza}")
@@ -47,6 +50,10 @@ public class PizzaController {
     @GetMapping("/withOut/{description}")
     public ResponseEntity<Page<DTOPizzaList>> pizzasWithOutIngredient(@PageableDefault(size = 2)Pageable pageable,@PathVariable String description){
         return ResponseEntity.ok(service.getPizzaWithOutIngredient(pageable,description).map(DTOPizzaList::new));
+    }
+    @GetMapping("/cheapest/{price}")
+    public ResponseEntity<Page<DTOPizzaList>> getCheapest(@PageableDefault(size = 3)Pageable pageable,@PathVariable double price){
+        return ResponseEntity.ok(service.getCheapest(price,pageable).map(DTOPizzaList::new));
     }
 
     @PostMapping("/create")
