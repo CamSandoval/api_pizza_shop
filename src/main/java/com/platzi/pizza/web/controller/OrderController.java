@@ -1,6 +1,7 @@
 package com.platzi.pizza.web.controller;
 
 import com.platzi.pizza.persistence.entity.Order.DTOOrderList;
+import com.platzi.pizza.persistence.projection.OrderSummary;
 import com.platzi.pizza.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,8 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 import java.util.stream.Stream;
 
 @RestController
@@ -37,6 +36,16 @@ public class OrderController {
 
     @GetMapping("/outside")
     public ResponseEntity<Page<DTOOrderList>> getOutsideOrders(@PageableDefault(size = 5) Pageable pageable){
-        return ResponseEntity.ok((service.getOutsideOrders(pageable).map(DTOOrderList ::new)));
+        return ResponseEntity.ok(service.getOutsideOrders(pageable).map(DTOOrderList ::new));
+    }
+
+    @GetMapping("/customer/{idCustomer}")
+    public ResponseEntity<Page<DTOOrderList>> getCustomerOrders(@PathVariable String idCustomer,@PageableDefault(size=2)Pageable pageable){
+        return ResponseEntity.ok(service.getCustomerOrder(idCustomer,pageable).map(DTOOrderList::new));
+    }
+
+    @GetMapping("/summary/{idOrder}")
+    public ResponseEntity<OrderSummary> getSummary(@PathVariable int idOrder){
+        return ResponseEntity.ok(service.getSummary(idOrder));
     }
 }

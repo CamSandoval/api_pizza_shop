@@ -1,6 +1,7 @@
 package com.platzi.pizza.service;
 
 import com.platzi.pizza.persistence.entity.Order.OrderEntity;
+import com.platzi.pizza.persistence.projection.OrderSummary;
 import com.platzi.pizza.persistence.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,5 +44,12 @@ public class OrderService {
     public Page<OrderEntity> getOutsideOrders(Pageable pageable){
         List<String> methods= Arrays.asList(DELIVERY,CARRYOUT);
         return repository.findAllByMethodIn(methods,pageable);
+    }
+    public Page<OrderEntity> getCustomerOrder(String idCustomer,Pageable pageable){
+        return this.repository.findCustomerOrders(idCustomer,pageable);
+    }
+
+    public OrderSummary getSummary(int id){
+        return repository.findSummary(id);
     }
 }

@@ -1,6 +1,7 @@
 package com.platzi.pizza.service;
 
 import com.platzi.pizza.persistence.entity.Pizza.PizzaEntity;
+import com.platzi.pizza.persistence.entity.Pizza.UpdatePizzaPriceDTO;
 import com.platzi.pizza.persistence.repository.PizzaPagSortRepository;
 import com.platzi.pizza.persistence.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,10 @@ public class PizzaService {
     }
     public boolean exists(Integer idPizza){
         return repository.existsById(idPizza);
+    }
+
+    public void updatePrice(UpdatePizzaPriceDTO dto){
+        repository.updatePrice(dto);
     }
 
 }

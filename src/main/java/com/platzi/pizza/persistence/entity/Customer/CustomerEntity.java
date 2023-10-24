@@ -1,7 +1,5 @@
 package com.platzi.pizza.persistence.entity.Customer;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.platzi.pizza.persistence.entity.Order.OrderEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

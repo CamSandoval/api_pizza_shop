@@ -1,9 +1,6 @@
 package com.platzi.pizza.web.controller;
 
-import com.platzi.pizza.persistence.entity.Pizza.DTOCreatePizza;
-import com.platzi.pizza.persistence.entity.Pizza.DTOPizzaList;
-import com.platzi.pizza.persistence.entity.Pizza.DTOUpdatePizza;
-import com.platzi.pizza.persistence.entity.Pizza.PizzaEntity;
+import com.platzi.pizza.persistence.entity.Pizza.*;
 import com.platzi.pizza.service.PizzaService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -75,6 +72,17 @@ public class PizzaController {
         if(pizza.getIdPizza() != null && service.exists(pizza.getIdPizza())){
             pizza.update(data);
             return ResponseEntity.ok(new DTOPizzaList(pizza));
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    @PatchMapping("/updatePrice")
+    @Transactional
+    public ResponseEntity<Void> updatePrice(@RequestBody UpdatePizzaPriceDTO dto){
+        PizzaEntity pizza = service.getReferenceById(dto.getPizzaId());
+        if(pizza.getIdPizza() != null && service.exists(pizza.getIdPizza())){
+            service.updatePrice(dto);
+            return ResponseEntity.ok().build();
         }
         return ResponseEntity.badRequest().build();
     }
